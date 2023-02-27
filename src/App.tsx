@@ -3,8 +3,34 @@ import { paths } from "./constants/paths"
 import { CreateTicket, Ticket, Tickets } from "./pages/tickets"
 import { Login, Register } from "./pages/auth"
 import { AdminRoute, AuthRoute, PrivateRoute } from "./middlewares"
+import { auth } from "./firebase-config"
+import { onAuthStateChanged } from "firebase/auth"
+import { AuthActions } from "./store/slices/authSlice"
+import { useAppDispatch } from "./store"
+import { useState } from "react"
+import Spinner from "./components/Spinner"
+import Layout from "./components/Layout"
 
 const App = () => {
+    const dispatch = useAppDispatch();
+    const [userLoading, setUserLoading] = useState(true);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            dispatch(AuthActions.restoreUser({
+                email: user.email || '',
+                role: "USER"
+            }))
+            setUserLoading(false);
+        } else {
+            setUserLoading(false);
+            dispatch(AuthActions.logoutUser())
+        }
+    });
+
+    if (userLoading) {
+        return <Spinner />
+    }
 
     return (
         <BrowserRouter>
@@ -13,7 +39,9 @@ const App = () => {
                     path={paths.tickets}
                     element={
                         <PrivateRoute>
-                            <Tickets />
+                            <Layout>
+                                <Tickets />
+                            </Layout>
                         </PrivateRoute>
                     }
                 />
@@ -21,7 +49,9 @@ const App = () => {
                     path={paths.ticket}
                     element={
                         <PrivateRoute>
-                            <Ticket />
+                            <Layout>
+                                <Ticket />
+                            </Layout>
                         </PrivateRoute>
                     }
                 />
@@ -29,7 +59,9 @@ const App = () => {
                     path={paths.createTicket}
                     element={
                         <AdminRoute>
-                            <CreateTicket />
+                            <Layout>
+                                <CreateTicket />
+                            </Layout>
                         </AdminRoute>
                     }
                 />
