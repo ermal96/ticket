@@ -1,16 +1,17 @@
 import { Navigate } from "react-router-dom";
 import { paths } from "../constants/paths";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../store/selectors/authSelector";
 
 type Props = {
     children: JSX.Element,
-
 }
 
 const PrivateRoute = ({ children }: Props) => {
-    const loggedIn = false;
-    const userRole = "ADMIN";
+    const auth = useSelector(selectAuth);
 
-    if (loggedIn && (userRole === "ADMIN" || userRole === "USER")) {
+
+    if (auth.loggedIn && (auth.user?.role === "ADMIN" || auth.user?.role === "USER")) {
         return children;
     }
 

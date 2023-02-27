@@ -1,5 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { paths } from "../constants/paths";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../store/selectors/authSelector";
 
 type Props = {
     children: JSX.Element,
@@ -7,10 +9,9 @@ type Props = {
 
 const AdminRoute = ({ children }: Props) => {
 
-    const loggedIn = false;
-    const userRole = "ADMIN";
+    const auth = useSelector(selectAuth);
 
-    if (loggedIn && userRole === "ADMIN") {
+    if (auth.loggedIn && auth.user?.role === "ADMIN") {
         return children;
     }
 

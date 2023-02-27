@@ -1,14 +1,17 @@
 import { Navigate } from "react-router-dom";
 import { paths } from "../constants/paths";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../store/selectors/authSelector";
 
 type Props = {
     children: JSX.Element,
 }
 
 const AuthRoute = ({ children }: Props) => {
-    const loggedIn = false;
+    const auth = useSelector(selectAuth);
 
-    if (!loggedIn) {
+
+    if (!auth.loggedIn) {
         return children;
     }
 
