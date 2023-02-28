@@ -44,5 +44,6 @@ export type Ticket = {
 export type TicketState = {
     loading: boolean,
     error?: string,
+    ticket?: Ticket,
     tickets?: Ticket[]
 }

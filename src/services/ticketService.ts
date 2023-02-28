@@ -1,8 +1,23 @@
-import { FirebaseError, Ticket } from './../types';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { collection, getDocs, query, where, addDoc } from '@firebase/firestore';
+import { FirebaseError, Ticket } from './../types';
+import { collection, getDocs, query, where, addDoc, getDoc, doc } from '@firebase/firestore';
 import { db } from './../firebase-config';
 
+
+export const fetchTicket = async (id: string, rejectWithValue: any) => {
+    try {
+
+        const ticketRef = doc(db, "tickets", id);
+        const ticket = await getDoc(ticketRef);
+        return {
+            ...ticket.data(),
+            id: ticket.id
+        };
+
+    } catch (err) {
+        return rejectWithValue((err as FirebaseError).message as string)
+    }
+}
 
 export const fetchTickets = async (rejectWithValue: any) => {
     try {
