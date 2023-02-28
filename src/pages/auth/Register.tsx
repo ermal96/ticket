@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Container, FormGroup, Typography, Box, Alert, Snackbar } from "@mui/material"
+import { Button, Grid, TextField, Container, FormGroup, Typography, Box, Alert, Snackbar, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import RegisterIcon from '../../assets/register.svg';
 import { Link } from "react-router-dom";
 import { paths } from "../../constants/paths";
@@ -7,27 +7,25 @@ import { useAppDispatch } from "../../store";
 import { registerUser } from "../../store/actions/authActions";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../store/selectors/authSelector";
+import { UserAuth, UserRole } from "../../types";
 
 const Register = () => {
 
     const dispatch = useAppDispatch();
     const auth = useSelector(selectAuth)
 
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<UserAuth>({
         email: '',
         password: '',
+        role: 'USER'
     })
 
     const handleRegister = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        dispatch(registerUser({
-            email: form.email,
-            password: form.password,
-            role: 'USER'
-        }))
+        dispatch(registerUser(form))
 
-    }, [dispatch, form.email, form.password]);
+    }, [dispatch, form]);
 
     const isFormValid = useMemo(() => {
         return form.email.length && form.password.length >= 6
@@ -73,7 +71,21 @@ const Register = () => {
                                 </FormGroup>
                             </Box>
 
+                            <Box marginBottom={2}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                    <Select
 
+                                        required
+                                        value={form.role}
+                                        label="Tikcet Type"
+                                        onChange={(e) => setForm((prev) => ({ ...prev, role: e.target.value as UserRole }))}
+                                    >
+                                        <MenuItem value="USER">User</MenuItem>
+                                        <MenuItem value="ADMIN">Admin</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
 
                             <Box marginBottom={2}>
                                 <Button disabled={!isFormValid || auth.loading} type="submit" variant="contained">Create</Button>

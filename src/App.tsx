@@ -10,16 +10,18 @@ import { useAppDispatch } from "./store"
 import { useState } from "react"
 import Spinner from "./components/Spinner"
 import Layout from "./components/Layout"
+import { UserRole } from "./types"
 
 const App = () => {
     const dispatch = useAppDispatch();
     const [userLoading, setUserLoading] = useState(true);
 
     onAuthStateChanged(auth, (user) => {
+        console.log(user)
         if (user) {
             dispatch(AuthActions.restoreUser({
                 email: user.email || '',
-                role: "USER"
+                role: (user.displayName as UserRole) || 'USER'
             }))
             setUserLoading(false);
         } else {

@@ -4,7 +4,6 @@ import { useAppDispatch } from "../../store";
 import { getTicket } from "../../store/actions/ticketActions";
 import { useSelector } from "react-redux";
 import { selectTicket } from "../../store/selectors/ticketSelector";
-import Spinner from "../../components/Spinner";
 import { Box, CircularProgress, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';

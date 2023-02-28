@@ -8,7 +8,6 @@ import { useAppDispatch } from '../store';
 import { getTickes } from '../store/actions/ticketActions';
 import { useSelector } from 'react-redux';
 import { selectTicket } from '../store/selectors/ticketSelector';
-import Spinner from './Spinner';
 
 const columns: GridColDef[] = [
     {

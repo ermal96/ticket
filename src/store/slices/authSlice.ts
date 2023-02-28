@@ -20,10 +20,9 @@ const setLoginRejected = (state: AuthState, action: PayloadAction<string>): void
 
 const setLoginFulfilled = (state: AuthState, action: PayloadAction<FirebaseAuthResponse>): void => {
     state.loading = false
-    state.loading = true
     state.user = {
         email: action.payload.email,
-        role: action.payload.role || "USER"
+        role: action.payload.role
     }
 
 };
@@ -39,7 +38,7 @@ const setRegisterFulfilled = (state: AuthState, action: PayloadAction<FirebaseAu
     state.loggedIn = true
     state.user = {
         email: action.payload.email,
-        role: action.payload.role || "USER"
+        role: action.payload.role
     }
 };
 
@@ -51,7 +50,7 @@ export const AuthSlice = createSlice({
             state.loggedIn = true,
                 state.user = {
                     email: action.payload.email,
-                    role: action.payload.role || "USER"
+                    role: action.payload.role
                 }
         },
 
