@@ -164,7 +164,7 @@ const CreateTicket = () => {
                         <TextField
                             required
                             value={form.from_date}
-                            onChange={(e) => handleFromDate(e)}
+                            onChange={handleFromDate}
                             label="From Date"
                             type="date"
                             variant="outlined"
