@@ -7,7 +7,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Header />
             {children}
         </Container>
