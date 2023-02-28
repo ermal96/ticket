@@ -7,12 +7,15 @@ import { useAppDispatch } from "../../store"
 import { saveTicket } from "../../store/actions/ticketActions"
 import { useSelector } from "react-redux"
 import { selectTicket } from "../../store/selectors/ticketSelector"
+import { useNavigate } from "react-router"
+import { paths } from "../../constants/paths"
 
 
 const CreateTicket = () => {
 
     const dispatch = useAppDispatch();
     const ticket = useSelector(selectTicket)
+    const navigate = useNavigate()
 
     const formatDate = useCallback((date: Date) => {
         return date.toISOString().split('T')[0]
@@ -37,13 +40,16 @@ const CreateTicket = () => {
 
     const handleTicketCreate = useCallback(async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await dispatch(saveTicket({
+        dispatch(saveTicket({
             ...form,
             ticket_type_id: `${Math.random().toString(16).slice(2)}_${form.ticket_type}`
-        }))
+        })).then(() => {
+            setForm(initialForm);
+            navigate(paths.tickets);
+        }).catch(() => setForm(initialForm))
 
-        setForm(initialForm)
-    }, [dispatch, form, initialForm]);
+
+    }, [dispatch, form, initialForm, navigate]);
 
 
     const handleTicketType = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
