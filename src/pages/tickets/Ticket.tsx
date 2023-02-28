@@ -5,7 +5,7 @@ import { getTicket } from "../../store/actions/ticketActions";
 import { useSelector } from "react-redux";
 import { selectTicket } from "../../store/selectors/ticketSelector";
 import Spinner from "../../components/Spinner";
-import { Box, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import FlightLandIcon from '@mui/icons-material/FlightLand';
 import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
@@ -26,8 +26,12 @@ const Ticket = () => {
     }, [dispatch, id]);
 
     if (ticket.loading) {
-        return <Spinner />
-    } else if (ticket.error) {
+        return <CircularProgress />
+    }
+
+
+
+    if (ticket.error) {
         return <Typography>
             {ticket.error}
         </Typography>

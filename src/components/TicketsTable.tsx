@@ -1,5 +1,5 @@
 /* eslint-disable import/named */
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useCallback, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -77,7 +77,7 @@ const TicketsTable = () => {
 
 
     if (ticket.loading) {
-        return <Spinner />
+        return <CircularProgress />
     }
 
     if (!ticket.tickets?.length) {
