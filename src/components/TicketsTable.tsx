@@ -14,7 +14,7 @@ const columns: GridColDef[] = [
     {
         field: 'ticket_type_id',
         headerName: 'Ticket Type ID',
-        width: 250,
+        width: 210,
     },
     {
         field: 'inbound',
@@ -35,7 +35,7 @@ const columns: GridColDef[] = [
     {
         field: 'price',
         headerName: 'Price',
-        width: 110,
+        width: 80,
     },
     {
         field: 'from_date',
@@ -86,14 +86,15 @@ const TicketsTable = () => {
 
     return (
 
-        <Box sx={{ height: 500, marginTop: 3 }}>
+        <Box sx={{ height: 390, marginTop: 3 }}>
             <DataGrid
                 isRowSelectable={() => false}
                 onRowClick={hanigateToSigleTicket}
                 rows={ticket.tickets}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
+                pageSize={8}
+                density='compact'
+                rowsPerPageOptions={[8]}
             />
         </Box>
 
