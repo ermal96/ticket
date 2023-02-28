@@ -1,18 +1,22 @@
 /* eslint-disable import/named */
-import { Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import TicketsTable from "../../components/TicketsTable";
+import LocationSrc from "../../assets/location.svg";
 
 
 const Tickets = () => {
     return (
-        <>
-            <Typography variant="h4" component="h1" marginBottom={2} marginTop={2}>
-                Check out our tickes
-            </Typography>
-            <TicketsTable />
-        </>
+        <Grid container spacing={8} sx={{ marginTop: 12 }}>
+            <Grid item xs={12} md={4}>
+                <img src={LocationSrc} style={{ width: '100%' }} alt="Location" />
+            </Grid>
+            <Grid item xs={12} md={8}>
+                <Box>
+                    <TicketsTable />
+                </Box>
+            </Grid>
 
-
+        </Grid>
     );
 }
 
